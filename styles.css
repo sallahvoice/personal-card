@@ -1,0 +1,156 @@
+/* Sets up the overall page layout with margin and font */
+body {
+    margin: 20px;                                     /* Adds 20px of space around the edge of the page */
+    font-family: Helvetica, Geneva, Tahoma, sans-serif; /* Sets the font for the entire page */
+    background-color: #f5f0e8;                        /* Sets a light beige background color */
+    display: flex;                                    /* Makes the body a flex container */
+    justify-content: center;                          /* Centers items horizontally */
+    align-items: center;                              /* Centers items vertically */
+    min-height: 100vh;                                /* Makes the page at least as tall as the viewport */
+}
+
+/* Main card container styling */
+.card {
+    width: 350px;                                     /* Sets the width of the card */
+    padding: 25px;                                    /* Adds space inside the card between border and content */
+    display: flex;                                    /* Makes the card a flex container for layout */
+    justify-content: space-between;                   /* Spreads content to both sides */
+    align-items: center;                              /* Vertically centers items */
+    background: #ffe6a7;                              /* Sets light yellow background color */
+    color: #99582a;                                   /* Sets text color to brown */
+    border: 3px solid #432818;                        /* Adds dark brown border around the card */
+    border-radius: 20px;                              /* Rounds the corners of the card */
+    box-shadow: 0 8px 20px rgba(67, 40, 24, 0.15);    /* Adds shadow for 3D effect */
+    transition: all 0.3s ease;                        /* Makes all property changes smooth over 0.3 seconds */
+    position: relative;                               /* Needed for the shine effect positioning */
+    overflow: hidden;                                 /* Prevents shine effect from going outside the card */
+}
+
+/* Defines what happens when hovering over the card */
+.card:hover {
+    transform: translateY(-8px);                      /* Moves the card up by 8px */
+    box-shadow: 0 12px 25px rgba(67, 40, 24, 0.25);   /* Increases the shadow size and opacity */
+}
+
+/* Container for the profile image */
+.avatar-container {
+    width: 110px;                                     /* Sets the width of the image container */
+    height: 110px;                                    /* Sets the height of the image container */
+    border-radius: 50%;                               /* Makes the container circular */
+    overflow: hidden;                                 /* Clips the image to the circular shape */
+    border: 3px solid #432818;                        /* Adds dark brown border around the image */
+    transition: all 0.3s ease;                        /* Makes all property changes smooth */
+    flex-shrink: 0;                                   /* Prevents the image from shrinking */
+}
+
+/* The actual profile image styling */
+.avatar {
+    width: 100%;                                      /* Makes the image fill its container width */
+    height: 100%;                                     /* Makes the image fill its container height */
+    object-fit: cover;                                /* Ensures the image covers the area without distortion */
+    transition: transform 0.3s ease;                  /* Makes transform changes smooth */
+}
+
+/* Image animation on hover */
+.card:hover .avatar {
+    transform: scale(1.1);                            /* Enlarges the image by 10% when hovering over the card */
+}
+
+/* Text content container */
+.info {
+    margin-left: 20px;                                /* Adds space between the image and text */
+    flex-grow: 1;                                     /* Allows text area to take up remaining space */
+}
+
+/* Name styling */
+h3 {
+    margin-top: 0;                                    /* Removes default top margin */
+    margin-bottom: 10px;                              /* Adds space below the name */
+    font-size: 20px;                                  /* Sets the name text size */
+    position: relative;                               /* Needed for the underline effect */
+    display: inline-block;                            /* Makes element only as wide as the text */
+}
+
+/* Creates the underline animation element */
+h3::after {
+    content: '';                                      /* Required for pseudo-elements */
+    position: absolute;                               /* Positions relative to the name text */
+    width: 0;                                         /* Starts with zero width (invisible) */
+    height: 2px;                                      /* Sets the thickness of the underline */
+    bottom: -3px;                                     /* Positions below the text */
+    left: 0;                                          /* Aligns to the left edge of the text */
+    background-color: #99582a;                        /* Sets the underline color */
+    transition: width 0.3s ease;                      /* Makes the width change smooth */
+}
+
+/* Triggers the underline animation on hover */
+.card:hover h3::after {
+    width: 100%;                                      /* Extends underline to full width when hovering */
+}
+
+/* Job title styling */
+p {
+    margin: 8px 0;                                    /* Sets vertical spacing */
+    font-style: italic;                               /* Makes the text italic */
+    opacity: 0.8;                                     /* Makes it slightly transparent */
+}
+
+/* Location text styling */
+h4 {
+    margin: 8px 0 0;                                  /* Sets spacing, zero at bottom */
+    font-weight: normal;                              /* Makes the text not bold */
+    font-size: 15px;                                  /* Sets the text size */
+    opacity: 0.7;                                     /* Makes it more transparent than the job title */
+}
+
+/* Sets up the shine effect overlay */
+.card::before {
+    content: '';                                      /* Required for pseudo-elements */
+    position: absolute;                               /* Positions relative to the card */
+    top: -50%;                                        /* Positions half outside the top */
+    left: -50%;                                       /* Positions half outside the left */
+    width: 200%;                                      /* Makes it twice as wide as the card */
+    height: 200%;                                     /* Makes it twice as tall as the card */
+    background: linear-gradient(                      /* Creates a diagonal white gradient */
+        45deg,
+        rgba(255, 255, 255, 0) 0%,                    /* Transparent at start */
+        rgba(255, 255, 255, 0.1) 50%,                 /* Slightly white in middle */
+        rgba(255, 255, 255, 0) 100%                   /* Transparent at end */
+    );
+    transform: rotate(45deg);                         /* Rotates the gradient diagonally */
+    transition: all 0.7s ease;                        /* Makes all property changes smooth */
+    opacity: 0;                                       /* Starts invisible */
+}
+
+/* Triggers the shine animation on hover */
+.card:hover::before {
+    animation: subtle-shine 1.5s;                     /* Runs the shine animation once for 1.5 seconds */
+}
+
+/* Defines the shine animation keyframes */
+@keyframes subtle-shine {
+    0% {
+        left: -100%;                                  /* Starts position off-screen left */
+        opacity: 0;                                   /* Starts invisible */
+    }
+    50% {
+        opacity: 0.3;                                 /* Becomes visible in the middle */
+    }
+    100% {
+        left: 100%;                                   /* Ends position off-screen right */
+        opacity: 0;                                   /* Ends invisible */
+    }
+}
+
+/*
+Stretch goals:
+Find other ways you can personalize 
+the design of your business card, e.g.:
+- change the border(s)
+- add border radius
+- shuffle the layout
+- shadows        🤯
+- hover effects  🤯🤯
+- animations     🤯🤯🤯
+*/
+
